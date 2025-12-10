@@ -18,6 +18,10 @@ export function CreateTeam(){
                 body: JSON.stringify({name})
             }) 
             if(response.ok){
+                const newTeam = await response.json();
+                const savedIds = JSON.parse(localStorage.getItem('my_teams') || '[]');
+                savedIds.push(newTeam.id)
+                localStorage.setItem('my_teams', JSON.stringify(savedIds))
                 setName('');
                 router.refresh();
                 alert("Time criado com sucesso!");
